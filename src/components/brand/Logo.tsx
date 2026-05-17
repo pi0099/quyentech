@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { LocalizedLink } from "@/components/ui/LocalizedLink";
 import { cn } from "@/lib/utils";
 
 type LogoProps = {
@@ -37,7 +37,7 @@ export function Logo({ variant = "navbar", showText = true, className }: LogoPro
   );
 
   return (
-    <Link
+    <LocalizedLink
       href="/"
       className={cn(
         "group flex items-center gap-3 transition-opacity hover:opacity-90",
@@ -63,7 +63,7 @@ export function Logo({ variant = "navbar", showText = true, className }: LogoPro
           Quyen<span className="gradient-text">Tech</span>
         </span>
       )}
-    </Link>
+    </LocalizedLink>
   );
 }
 

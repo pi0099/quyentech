@@ -2,22 +2,24 @@
 
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { processSteps } from "@/lib/constants";
+import { useTranslations } from "@/contexts/LocaleContext";
 
 export function ProcessSection() {
+  const t = useTranslations();
+
   return (
     <section className="relative py-28 lg:py-36">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
-          label="Quy trình"
-          title="Quy trình engineering hiện đại"
-          description="Phương pháp làm việc minh bạch, lặp nhanh và tập trung vào kết quả kinh doanh."
+          label={t.process.label}
+          title={t.process.title}
+          description={t.process.description}
         />
 
-        <motion.div className="mt-16 relative">
+        <div className="mt-16 relative">
           <div className="hidden lg:block absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {processSteps.map((step, i) => (
+            {t.process.steps.map((step, i) => (
               <motion.div
                 key={step.step}
                 initial={{ opacity: 0, y: 24 }}
@@ -34,7 +36,7 @@ export function ProcessSection() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
-import { projects } from "@/lib/constants";
+import { LocalizedLink } from "@/components/ui/LocalizedLink";
+import { useTranslations } from "@/contexts/LocaleContext";
 import { cn } from "@/lib/utils";
 
 function ProjectMockup({ gradient }: { gradient: string }) {
@@ -13,7 +13,7 @@ function ProjectMockup({ gradient }: { gradient: string }) {
     <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-[#0a0f1f]">
       <div className="absolute inset-0 p-4 flex flex-col gap-3">
         <div className="flex gap-2">
-          <motion.div className="w-3 h-3 rounded-full bg-red-500/60" />
+          <div className="w-3 h-3 rounded-full bg-red-500/60" />
           <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
           <div className="w-3 h-3 rounded-full bg-green-500/60" />
         </div>
@@ -22,7 +22,7 @@ function ProjectMockup({ gradient }: { gradient: string }) {
             <div className="h-2 bg-white/10 rounded w-full" />
             <div className="h-2 bg-white/5 rounded w-3/4" />
             <div className="h-2 bg-white/5 rounded w-1/2" />
-            <motion.div className="h-16 bg-cyan-500/10 rounded-lg mt-4 border border-cyan-500/20" />
+            <div className="h-16 bg-cyan-500/10 rounded-lg mt-4 border border-cyan-500/20" />
           </div>
           <div className="col-span-2 space-y-2">
             <div className="h-20 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg border border-white/5" />
@@ -40,17 +40,19 @@ function ProjectMockup({ gradient }: { gradient: string }) {
 }
 
 export function ProjectsSection() {
+  const t = useTranslations();
+
   return (
     <section className="relative py-28 lg:py-36">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
-          label="Dự án"
-          title="Case studies cấp doanh nghiệp"
-          description="Những dự án thể hiện năng lực kỹ thuật và giá trị kinh doanh thực tế."
+          label={t.projects.label}
+          title={t.projects.title}
+          description={t.projects.description}
         />
 
         <div className="mt-16 space-y-8">
-          {projects.map((project, i) => (
+          {t.projects.items.map((project, i) => (
             <motion.article
               key={project.title}
               initial={{ opacity: 0, y: 40 }}
@@ -81,12 +83,12 @@ export function ProjectsSection() {
                     </span>
                   ))}
                 </div>
-                <Link
+                <LocalizedLink
                   href="/portfolio"
                   className="inline-flex items-center gap-2 mt-6 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
                 >
-                  Xem chi tiết <ExternalLink className="w-4 h-4" />
-                </Link>
+                  {t.projects.viewDetail} <ExternalLink className="w-4 h-4" />
+                </LocalizedLink>
               </div>
             </motion.article>
           ))}
@@ -94,7 +96,7 @@ export function ProjectsSection() {
 
         <div className="mt-12 text-center">
           <Button href="/portfolio" variant="secondary" size="lg">
-            Xem tất cả dự án
+            {t.projects.viewAll}
           </Button>
         </div>
       </div>

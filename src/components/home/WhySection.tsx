@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { whyItems } from "@/lib/constants";
+import { useTranslations } from "@/contexts/LocaleContext";
 
 function AnimatedMetric({ value }: { value: string }) {
   const ref = useRef(null);
@@ -23,18 +23,20 @@ function AnimatedMetric({ value }: { value: string }) {
 }
 
 export function WhySection() {
+  const t = useTranslations();
+
   return (
     <section className="relative py-28 lg:py-36 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-950/10 to-transparent pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-6">
         <SectionHeader
-          label="Tại sao QuyenTech"
-          title="Kỹ thuật đáng tin cậy, kết quả đo lường được"
-          description="Chúng tôi kết hợp tư duy kỹ sư với hiểu biết thị trường Việt Nam để mang lại giá trị dài hạn."
+          label={t.why.label}
+          title={t.why.title}
+          description={t.why.description}
         />
 
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {whyItems.map((item, i) => (
+          {t.why.items.map((item, i) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 24 }}

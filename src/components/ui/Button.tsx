@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
+import { LocalizedLink } from "@/components/ui/LocalizedLink";
 import { cn } from "@/lib/utils";
 
 type ButtonProps = {
@@ -54,9 +54,9 @@ export function Button({
   if (href) {
     return (
       <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-        <Link href={href} className={classes}>
+        <LocalizedLink href={href} className={classes}>
           {content}
-        </Link>
+        </LocalizedLink>
       </motion.div>
     );
   }

@@ -1,37 +1,34 @@
+"use client";
+
 import { PageShell } from "@/components/layout/PageShell";
 import { PageHero } from "@/components/ui/PageHero";
 import { Button } from "@/components/ui/Button";
 import { CTASection } from "@/components/home/CTASection";
+import { useTranslations } from "@/contexts/LocaleContext";
 import { Check } from "lucide-react";
 
 type ServiceDetailTemplateProps = {
-  title: string;
-  titleEn: string;
-  description: string;
-  features: string[];
-  benefits: string[];
+  slug: string;
 };
 
-export function ServiceDetailTemplate({
-  title,
-  titleEn,
-  description,
-  features,
-  benefits,
-}: ServiceDetailTemplateProps) {
+export function ServiceDetailTemplate({ slug }: ServiceDetailTemplateProps) {
+  const t = useTranslations();
+  const data = t.serviceDetail.pages[slug];
+  if (!data) return null;
+
   return (
     <PageShell>
-      <PageHero label={titleEn} title={title} description={description} />
+      <PageHero label={data.subtitle} title={data.title} description={data.description} />
 
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <ServiceDetailCard title="Dịch vụ bao gồm" items={features} />
-          <ServiceDetailCard title="Lợi ích" items={benefits} />
+          <ServiceDetailCard title={t.serviceDetail.includes} items={data.features} />
+          <ServiceDetailCard title={t.serviceDetail.benefits} items={data.benefits} />
         </div>
 
         <div className="max-w-7xl mx-auto px-6 mt-16 text-center">
           <Button href="/contact" variant="primary" size="lg">
-            Nhận tư vấn miễn phí
+            {t.serviceDetail.cta}
           </Button>
         </div>
       </section>

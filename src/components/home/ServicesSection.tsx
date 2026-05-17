@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { Code2, Globe, Search, Brain, ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { services } from "@/lib/constants";
+import { LocalizedLink } from "@/components/ui/LocalizedLink";
+import { useTranslations } from "@/contexts/LocaleContext";
 import { cn } from "@/lib/utils";
 
 const icons = {
@@ -15,17 +15,19 @@ const icons = {
 };
 
 export function ServicesSection() {
+  const t = useTranslations();
+
   return (
     <section className="relative py-28 lg:py-36">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
-          label="Dịch vụ"
-          title="Giải pháp công nghệ toàn diện"
-          description="Từ ý tưởng đến triển khai — chúng tôi xây dựng hệ thống số chất lượng cao cho doanh nghiệp Việt Nam."
+          label={t.services.label}
+          title={t.services.title}
+          description={t.services.description}
         />
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {services.map((service, i) => {
+          {t.services.items.map((service, i) => {
             const Icon = icons[service.icon as keyof typeof icons];
             return (
               <motion.div
@@ -35,7 +37,7 @@ export function ServicesSection() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ delay: i * 0.1, duration: 0.6 }}
               >
-                <Link href={service.href} className="group block h-full">
+                <LocalizedLink href={service.href} className="group block h-full">
                   <div
                     className={cn(
                       "relative h-full p-8 rounded-2xl glass glow-border",
@@ -52,10 +54,10 @@ export function ServicesSection() {
                     <h3 className="mt-6 font-display text-xl font-semibold text-white group-hover:text-cyan-50 transition-colors">
                       {service.title}
                     </h3>
-                    <p className="mt-1 text-sm text-cyan-500/70 font-medium">{service.titleEn}</p>
+                    <p className="mt-1 text-sm text-cyan-500/70 font-medium">{service.subtitle}</p>
                     <p className="mt-4 text-slate-400 leading-relaxed">{service.description}</p>
                   </div>
-                </Link>
+                </LocalizedLink>
               </motion.div>
             );
           })}

@@ -2,17 +2,19 @@
 
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { techStack } from "@/lib/constants";
+import { useTranslations } from "@/contexts/LocaleContext";
 
 export function TechStackSection() {
+  const t = useTranslations();
   const items = [...techStack, ...techStack];
 
   return (
     <section className="relative py-28 lg:py-36 overflow-hidden border-y border-white/5">
       <div className="max-w-7xl mx-auto px-6 mb-12">
         <SectionHeader
-          label="Công nghệ"
-          title="Stack hiện đại, đã được chứng minh"
-          description="Chúng tôi sử dụng công nghệ hàng đầu để xây dựng hệ thống bền vững và hiệu năng cao."
+          label={t.tech.label}
+          title={t.tech.title}
+          description={t.tech.description}
         />
       </div>
       <div className="relative">

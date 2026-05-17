@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GridBackground } from "@/components/effects/GridBackground";
-import { GlowOrb } from "@/components/effects/GlowOrb";
+import { SpaceAtmosphere } from "@/components/effects/space/SpaceAtmosphere";
 
 type PageHeroProps = {
   label?: string;
@@ -13,8 +12,7 @@ type PageHeroProps = {
 export function PageHero({ label, title, description }: PageHeroProps) {
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
-      <GridBackground />
-      <GlowOrb className="top-0 right-0" color="cyan" size="md" />
+      <SpaceAtmosphere intensity="medium" enableMouseGlow={false} />
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
