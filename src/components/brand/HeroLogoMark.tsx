@@ -1,75 +1,85 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
-/** Original asset aspect — no crop, no scale tricks */
-const LOGO_W = 188;
-const LOGO_H = Math.round(LOGO_W * (1024 / 1019));
+const SIZE = 200;
 
 export function HeroLogoMark() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      className="relative inline-block"
-      style={{ width: LOGO_W, height: LOGO_H }}
-      initial={{ opacity: 0, scale: 0.96 }}
+      className="relative flex items-center justify-center"
+      style={{ width: SIZE, height: SIZE }}
+      initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
     >
-      <SolarCoronaGlow />
-      <Image
-        src="/hero-logo.png"
-        alt="QuyenTech"
-        width={LOGO_W}
-        height={LOGO_H}
-        className="relative z-10 block h-full w-full object-contain select-none"
-        priority
-        draggable={false}
+      <SolarFlareRays size={SIZE} reducedMotion={!!reduceMotion} />
+
+      <div className="relative z-10 size-full rounded-full overflow-hidden bg-black shadow-[0_0_1px_rgba(255,200,100,0.3)]">
+        <Image
+          src="/hero-logo.png"
+          alt="QuyenTech"
+          fill
+          sizes={`${SIZE}px`}
+          className="object-cover object-center select-none"
+          priority
+          draggable={false}
+        />
+      </div>
+
+      {/* Rim highlight on circular edge */}
+      <div
+        className="absolute inset-0 z-20 rounded-full pointer-events-none ring-1 ring-amber-300/15"
+        style={{
+          boxShadow:
+            "inset 0 0 24px rgba(255, 180, 60, 0.12), 0 0 12px rgba(255, 140, 0, 0.15)",
+        }}
+        aria-hidden
       />
     </motion.div>
   );
 }
 
-/** Fire-like corona around the entire logo image bounds */
-function SolarCoronaGlow() {
+function SolarFlareRays({
+  size,
+  reducedMotion,
+}: {
+  size: number;
+  reducedMotion: boolean;
+}) {
+  const layer = size * 1.55;
+
   return (
-    <div
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-      style={{ width: "142%", height: "138%" }}
-      aria-hidden
-    >
-      {/* Core solar disk glow */}
+    <>
       <motion.div
-        className="absolute inset-0 hero-solar-core"
-        animate={{
-          scale: [1, 1.06, 1.02, 1.08, 1],
-          opacity: [0.55, 0.88, 0.65, 0.92, 0.55],
-        }}
-        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Rotating flame tongues (conic corona) */}
-      <motion.div
-        className="absolute inset-[-6%] hero-solar-flame"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-      />
+        className="absolute left-1/2 top-1/2 pointer-events-none"
+        style={{ width: layer, height: layer, marginLeft: -layer / 2, marginTop: -layer / 2 }}
+        animate={reducedMotion ? undefined : { rotate: 360 }}
+        transition={reducedMotion ? undefined : { duration: 36, repeat: Infinity, ease: "linear" }}
+        aria-hidden
+      >
+        <div className="absolute inset-0 hero-sun-rays" />
+        <motion.div
+          className="absolute inset-0 hero-sun-rays hero-sun-rays--warm"
+          animate={reducedMotion ? undefined : { opacity: [0.35, 0.85, 0.4, 0.9, 0.35] }}
+          transition={
+            reducedMotion ? undefined : { duration: 4, repeat: Infinity, ease: "easeInOut" }
+          }
+        />
+      </motion.div>
 
       <motion.div
-        className="absolute inset-[-4%] hero-solar-flame hero-solar-flame--reverse"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-      />
-
-      {/* Flickering outer fire */}
-      <motion.div
-        className="absolute inset-[-10%] hero-solar-outer"
-        animate={{
-          scale: [1, 1.1, 1.03, 1.12, 1],
-          opacity: [0.35, 0.65, 0.45, 0.7, 0.35],
-        }}
-        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </div>
+        className="absolute left-1/2 top-1/2 pointer-events-none"
+        style={{ width: layer * 1.08, height: layer * 1.08, marginLeft: -(layer * 1.08) / 2, marginTop: -(layer * 1.08) / 2 }}
+        animate={reducedMotion ? undefined : { rotate: -360 }}
+        transition={reducedMotion ? undefined : { duration: 52, repeat: Infinity, ease: "linear" }}
+        aria-hidden
+      >
+        <div className="absolute inset-0 hero-sun-rays hero-sun-rays--fine" />
+      </motion.div>
+    </>
   );
 }
