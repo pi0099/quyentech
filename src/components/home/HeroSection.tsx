@@ -32,14 +32,9 @@ export function HeroSection() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <motion.div className="flex flex-col items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-8"
-          >
+          <div className="mb-8">
             <Logo variant="hero" showText={false} />
-          </motion.div>
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
