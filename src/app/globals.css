@@ -141,61 +141,6 @@ body {
   animation: pulse-glow 4s ease-in-out infinite;
 }
 
-/* Hero logo — sun-flare rays on circular rim */
-.hero-sun-rays {
-  border-radius: 50%;
-  background: repeating-conic-gradient(
-    from 0deg at 50% 50%,
-    transparent 0deg 5deg,
-    rgba(255, 200, 80, 0.95) 5deg 6.2deg,
-    rgba(255, 120, 20, 0.75) 6.2deg 7.5deg,
-    transparent 7.5deg 12.5deg
-  );
-  -webkit-mask: radial-gradient(
-    circle,
-    transparent 0 46%,
-    #000 50% 64%,
-    transparent 68%
-  );
-  mask: radial-gradient(circle, transparent 0 46%, #000 50% 64%, transparent 68%);
-  filter: blur(0.6px);
-}
-
-.hero-sun-rays--warm {
-  background: repeating-conic-gradient(
-    from 4deg at 50% 50%,
-    transparent 0deg 7deg,
-    rgba(255, 160, 40, 0.85) 7deg 8deg,
-    rgba(255, 60, 0, 0.55) 8deg 9.5deg,
-    transparent 9.5deg 15deg
-  );
-  -webkit-mask: radial-gradient(
-    circle,
-    transparent 0 44%,
-    #000 49% 66%,
-    transparent 70%
-  );
-  mask: radial-gradient(circle, transparent 0 44%, #000 49% 66%, transparent 70%);
-}
-
-.hero-sun-rays--fine {
-  background: repeating-conic-gradient(
-    from 2deg at 50% 50%,
-    transparent 0deg 3deg,
-    rgba(255, 230, 140, 0.7) 3deg 3.6deg,
-    transparent 3.6deg 7.5deg
-  );
-  -webkit-mask: radial-gradient(
-    circle,
-    transparent 0 48%,
-    #000 51% 62%,
-    transparent 66%
-  );
-  mask: radial-gradient(circle, transparent 0 48%, #000 51% 62%, transparent 66%);
-  filter: blur(0.4px);
-  opacity: 0.85;
-}
-
 /* Space atmosphere */
 .space-grid-perspective {
   background-image:
