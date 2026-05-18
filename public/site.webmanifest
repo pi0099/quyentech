@@ -1,0 +1,19 @@
+{
+  "name": "QuyenTech",
+  "short_name": "QuyenTech",
+  "icons": [
+    {
+      "src": "/favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#050816",
+  "background_color": "#050816",
+  "display": "browser"
+}
