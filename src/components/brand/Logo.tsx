@@ -11,6 +11,9 @@ type LogoProps = {
   className?: string;
 };
 
+const HERO_LOGO_WIDTH = 176;
+const HERO_LOGO_HEIGHT = Math.round(HERO_LOGO_WIDTH * (1024 / 1019));
+
 export function Logo({ variant = "navbar", showText = true, className }: LogoProps) {
   if (variant === "hero") {
     return (
@@ -61,72 +64,50 @@ export function Logo({ variant = "navbar", showText = true, className }: LogoPro
 }
 
 function HeroCircularLogo() {
-  const qSize = 148;
-  const markWidth = 160;
+  const glowSize = 156;
 
   return (
     <motion.div
       className="relative flex flex-col items-center"
+      style={{ width: HERO_LOGO_WIDTH, minHeight: HERO_LOGO_HEIGHT }}
       initial={{ opacity: 0, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Glow behind circular Q */}
+      {/* Pulsing halo on the circular Q */}
       <motion.div
-        className="absolute top-0 left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
-        style={{ width: qSize + 56, height: qSize + 56 }}
-        animate={{ opacity: [0.45, 0.8, 0.45], scale: [1, 1.06, 1] }}
+        className="absolute left-1/2 top-[22%] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+        style={{ width: glowSize, height: glowSize }}
+        animate={{ opacity: [0.45, 0.82, 0.45], scale: [1, 1.07, 1] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden
       >
-        <motion.div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(0,245,160,0.35)_0%,rgba(0,217,255,0.15)_45%,transparent_68%)] blur-2xl" />
+        <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(0,245,160,0.38)_0%,rgba(0,217,255,0.16)_48%,transparent_70%)] blur-2xl" />
       </motion.div>
 
       <motion.div
-        className="relative rounded-full"
-        style={{ width: qSize, height: qSize }}
-        whileHover={{ scale: 1.03 }}
-        transition={{ type: "spring", stiffness: 280, damping: 22 }}
-      >
-        <div
-          className="absolute -inset-3 rounded-full blur-md pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(0,245,160,0.45) 0%, rgba(0,217,255,0.25) 50%, transparent 72%)",
-          }}
-          aria-hidden
-        />
-        <div
-          className="absolute inset-0 rounded-full pointer-events-none ring-1 ring-cyan-400/30"
-          style={{
-            boxShadow:
-              "0 0 32px rgba(0, 217, 255, 0.45), 0 0 64px rgba(0, 245, 160, 0.22)",
-          }}
-          aria-hidden
-        />
-        <div className="relative size-full overflow-hidden rounded-full">
-          <Image
-            src="/hero-logo.png"
-            alt=""
-            fill
-            sizes={`${qSize}px`}
-            className="object-cover object-[center_18%] scale-[1.28]"
-            priority
-          />
-        </div>
-      </motion.div>
+        className="absolute left-1/2 top-[22%] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none ring-1 ring-cyan-400/25"
+        style={{
+          width: glowSize - 8,
+          height: glowSize - 8,
+          boxShadow:
+            "0 0 36px rgba(0, 217, 255, 0.42), 0 0 72px rgba(0, 245, 160, 0.2)",
+        }}
+        animate={{ opacity: [0.55, 0.9, 0.55] }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+        aria-hidden
+      />
 
-      {/* UYEN wordmark crop */}
-      <div className="relative mt-4 w-[132px] h-9 overflow-hidden">
+      <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300, damping: 24 }}>
         <Image
           src="/hero-logo.png"
           alt="QuyenTech"
-          fill
-          sizes={`${markWidth}px`}
-          className="object-cover object-[50%_94%] scale-[3.35]"
+          width={HERO_LOGO_WIDTH}
+          height={HERO_LOGO_HEIGHT}
+          className="relative z-10 h-auto w-full object-contain drop-shadow-[0_0_32px_rgba(0,217,255,0.5)] drop-shadow-[0_0_64px_rgba(0,245,160,0.25)]"
           priority
         />
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
